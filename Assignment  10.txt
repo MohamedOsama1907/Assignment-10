@@ -1,0 +1,11 @@
+************ Assignment  10 ***********
+
+1- how can i do the scroll to top , is it by the window.scrollTo({
+ 	top:0;
+	behavior: "smooth"
+})
+or there is anthor method to do it ?
+
+2- ليه استخدمنا e.target instead of [i]
+
+3 - how can i make the active links in scrolling
