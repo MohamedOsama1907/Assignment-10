@@ -71,20 +71,13 @@ function applyTheme() {
   document.querySelector("body").style.fontFamily = themes.font;
 
   // colors (css variables)
-  document.documentElement.style.cssText = `--color-primary: ${themes.color.primary}; --color-secondary: ${themes.color.secondary}; --color-accent: ${themes.color.accent};`;
-  for (let i = 0; i < fontButtonsArr.length; i++) {
-    if (fontButtonsArr[i].getAttribute("data-font") === themes.font) {
-      fontButtonsArr[i].classList.add("active");
-      fontButtonsArr[i].style.cssText = `
-        border-width: 2px;
-        border-color: #6366f1;
-        background-color : #1D293D;
-      `;
-    } else {
-      fontButtonsArr[i].classList.remove("active");
-      fontButtonsArr[i].style.cssText = ``;
-    }
+ for (let i = 0; i < fontButtonsArr.length; i++) {
+  if (fontButtonsArr[i].getAttribute("data-font") === themes.font) {
+    fontButtonsArr[i].classList.add("active");
+  } else {
+    fontButtonsArr[i].classList.remove("active");
   }
+}
 }
 function removeActiveClassFromNavLinks() {
   for (let i = 0; i < navLinks.length; i++) {
@@ -197,16 +190,10 @@ function bindFontButtons() {
 
       for (let j = 0; j < fontButtonsArr.length; j++) {
         fontButtonsArr[j].classList.remove("active");
-        fontButtonsArr[j].style.cssText = ``;
       }
 
       this.classList.add("active");
-      this.style.cssText = `
-        border-width: 2px;
-        border-color: #6366f1;
-        background-color : #1D293D;
-      `;
-      // save after every click, not once outside the loop
+
       sessionStorage.setItem("themes", JSON.stringify(themes));
     });
   }

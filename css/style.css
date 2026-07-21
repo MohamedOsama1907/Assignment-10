@@ -3514,3 +3514,12 @@ textarea:focus-visible,
   );
   color: white;
 }
+.font-option.active {
+  border-width: 2px;
+  border-color: #6366f1;
+  background-color: #f1f5f9;
+}
+
+html.dark .font-option.active {
+  background-color: #1d293d;
+}

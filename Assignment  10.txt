@@ -9,3 +9,7 @@ or there is anthor method to do it ?
 2- ليه استخدمنا e.target instead of [i]
 
 3 - how can i make the active links in scrolling
+
+
+4- validation 
+5- ابعت الكود لكلود ويراجعه معايا ويفكرني بكل الحاجات والاستخدامات وليه عملنا كل وظيفة  او فانكشن وها فيه كود افضل من كدا
