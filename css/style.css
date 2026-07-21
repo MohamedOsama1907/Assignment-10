@@ -3506,3 +3506,11 @@ textarea:focus-visible,
     transform: none;
   }
 }
+.portfolio-filter.active {
+  background-image: linear-gradient(
+    to right,
+    var(--color-primary),
+    var(--color-secondary)
+  );
+  color: white;
+}

@@ -15,6 +15,9 @@ var tajawalFontBtn = document.getElementById("tajawalFontBtn");
 var fontButtonsArr = Array.from(document.querySelectorAll(".font-option"));
 var colorButtonsArr = Array.from(document.querySelectorAll(".color-option"));
 var resetSettingsBtn = document.getElementById("reset-settings");
+// =============== Filtering =========
+var filterButtons = Array.from(document.querySelectorAll(".portfolio-filter"));
+var portfolioItems = Array.from(document.querySelectorAll(".portfolio-item"));
 // ============== carousel ========
 var testimonialsCards = Array.from(
   document.querySelectorAll("#testimonials-carousel > div"),
@@ -41,16 +44,19 @@ var themes = {
   activeNavLinkIndex: null,
 };
 
-if (localStorage.getItem("themes")) {
-  themes = JSON.parse(localStorage.getItem("themes")) || themes;
+if (sessionStorage.getItem("themes")) {
+  themes = JSON.parse(sessionStorage.getItem("themes")) || themes;
 }
 
 // apply the loaded themes to the page
 applyTheme();
 // like display function
 function applyTheme() {
-  //links 
-  if (themes.activeNavLinkIndex !== null && navLinks[themes.activeNavLinkIndex]) {
+  //links
+  if (
+    themes.activeNavLinkIndex !== null &&
+    navLinks[themes.activeNavLinkIndex]
+  ) {
     removeActiveClassFromNavLinks();
     navLinks[themes.activeNavLinkIndex].classList.add("active");
   }
@@ -92,7 +98,7 @@ function activeLinks() {
       removeActiveClassFromNavLinks();
       e.target.classList.add("active");
       themes.activeNavLinkIndex = i;
-      localStorage.setItem("themes", JSON.stringify(themes));
+      sessionStorage.setItem("themes", JSON.stringify(themes));
     });
   }
 }
@@ -154,7 +160,7 @@ function toggleMode() {
     ? "dark"
     : "light";
 
-  localStorage.setItem("themes", JSON.stringify(themes));
+  sessionStorage.setItem("themes", JSON.stringify(themes));
 }
 toggleButton.addEventListener("click", function (e) {
   toggleMode();
@@ -201,7 +207,7 @@ function bindFontButtons() {
         background-color : #1D293D;
       `;
       // save after every click, not once outside the loop
-      localStorage.setItem("themes", JSON.stringify(themes));
+      sessionStorage.setItem("themes", JSON.stringify(themes));
     });
   }
 }
@@ -216,7 +222,7 @@ function bindColorButtons() {
       themes.color.accent = this.getAttribute("data-accent-color");
       document.documentElement.style.cssText = `--color-primary: ${themes.color.primary}; --color-secondary: ${themes.color.secondary}; --color-accent: ${themes.color.accent};`;
       // save after every click, not once outside the loop
-      localStorage.setItem("themes", JSON.stringify(themes));
+      sessionStorage.setItem("themes", JSON.stringify(themes));
     });
   }
 }
@@ -234,10 +240,37 @@ resetSettingsBtn.addEventListener("click", function () {
     mode: "dark",
   };
   applyTheme();
-  localStorage.setItem("themes", JSON.stringify(themes));
+  sessionStorage.setItem("themes", JSON.stringify(themes));
   settingsToggle();
 });
+// ===================== filter section ========================
 
+function buttonsStates(e) {
+  // Remove active class from the current active button
+  document.querySelector(".portfolio-filter.active").classList.remove("active");
+  filterButtons.forEach((btn) => {
+    btn.classList.remove("active");
+  });
+  // Add active class to the clicked button
+  e.target.classList.add("active");
+
+  // Hide all cards first
+  portfolioItems.forEach(function (card) {
+    card.classList.add("hidden");
+
+    // Show matching cards
+    if (
+      e.target.dataset.filter === card.dataset.category ||
+      e.target.dataset.filter === "all"
+    ) {
+      card.classList.remove("hidden");
+    }
+  });
+}
+
+filterButtons.forEach(function (button) {
+  button.addEventListener("click", buttonsStates);
+});
 // ===========================================================================
 // carousel function (testimonials section)(slider section)
 function updateCarouselIndicators() {
